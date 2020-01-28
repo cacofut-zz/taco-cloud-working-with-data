@@ -2,6 +2,7 @@ package br.com.salao.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,7 +21,7 @@ public class JdbcIngredientRepository implements IngredientRepository{
 	}
 
 	@Override
-	public Iterable<Ingredient> findAll() {		
+	public List<Ingredient> findAll() {		
 		return jdbc.query( "SELECT * FROM ingredient", this::mapToRowToIngredient );
 	}
 
@@ -31,15 +32,17 @@ public class JdbcIngredientRepository implements IngredientRepository{
 
 	@Override
 	public Ingredient save(Ingredient ingredient) {
-		jdbc.update("INSERT INTO ingredient(id, name, type)VALUES(?, ?, ?)",
-			ingredient.getId(), ingredient.getName(), ingredient.getType().toString());
+		System.out.println(ingredient.getType().toString());
+		jdbc.update("INSERT INTO ingredient(id, codigo, name, type)VALUES(?, ?, ?, ?)",
+			ingredient.getId(), ingredient.getCodigo(), ingredient.getName(), ingredient.getType().toString());
 		return ingredient;
 	}
 	
 	
 	public Ingredient mapToRowToIngredient( ResultSet rs, int index ) throws SQLException {
 		Ingredient ingredient = new Ingredient(
-			rs.getString("id"), 
+			rs.getLong("id"), 
+			rs.getString("codigo"), 
 			rs.getString("name"), 
 			Ingredient.Type.valueOf(rs.getString("type"))
 		);
