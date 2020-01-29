@@ -38,9 +38,7 @@ public class DesignTacoController {
 				.filter( i -> i.getType().equals(type)).collect(Collectors.toList());
 			model.addAttribute(type.toString().toLowerCase(), list);			
 		}
-		
-		ingredientRepository.findAll();
-		
+					
 		model.addAttribute("taco", new Taco());
 		return "design";
 	}

@@ -35,6 +35,7 @@ public class TacoCloud01Application implements WebMvcConfigurer, CommandLineRunn
 
 	@Override
 	public void run(String... args) throws Exception {
+		/*
 		List<Ingredient> ingredients = Arrays.asList(
 			new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
 			new Ingredient("COTO", "Corn Tortilla",  Type.WRAP),
@@ -50,7 +51,7 @@ public class TacoCloud01Application implements WebMvcConfigurer, CommandLineRunn
 		);
 		for (Ingredient ingredient : ingredients) {
 			ingredientRepository.save(ingredient);
-		}
+		}*/
 			
 		
 	}

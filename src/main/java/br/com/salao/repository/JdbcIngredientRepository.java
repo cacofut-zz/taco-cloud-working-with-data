@@ -31,8 +31,7 @@ public class JdbcIngredientRepository implements IngredientRepository{
 	}
 
 	@Override
-	public Ingredient save(Ingredient ingredient) {
-		System.out.println(ingredient.getType().toString());
+	public Ingredient save(Ingredient ingredient) {		
 		jdbc.update("INSERT INTO ingredient(id, codigo, name, type)VALUES(?, ?, ?, ?)",
 			ingredient.getId(), ingredient.getCodigo(), ingredient.getName(), ingredient.getType().toString());
 		return ingredient;
