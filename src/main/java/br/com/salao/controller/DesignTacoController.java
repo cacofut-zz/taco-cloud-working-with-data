@@ -17,6 +17,7 @@ import br.com.salao.entity.Ingredient;
 import br.com.salao.entity.Ingredient.Type;
 import br.com.salao.entity.Taco;
 import br.com.salao.repository.IngredientRepository;
+import br.com.salao.repository.TacoRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -26,6 +27,14 @@ public class DesignTacoController {
 	
 	@Autowired
 	private IngredientRepository ingredientRepository;
+	
+	private TacoRepository tacoRepository;
+	
+	@Autowired
+	public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {	
+		this.ingredientRepository = ingredientRepository;
+		this.tacoRepository = tacoRepository;
+	}
 
 	@GetMapping
 	public String showDesignForm(Model model) {
@@ -50,7 +59,9 @@ public class DesignTacoController {
 			return "design";
 		}
 		// Save the taco design
+		tacoRepository.save(taco);
 		// We'll do this in chapter 33
+		
 		log.info("processing design: " + taco);
 		return "redirect:/orders/current";
 	}

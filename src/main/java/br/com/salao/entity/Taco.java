@@ -20,5 +20,5 @@ public class Taco {
 	private String name;
 	
 	@NotEmpty(message = "You must be choose at least 1 ingredient")
-	private List<String> ingredients;
+	private List<Ingredient> ingredients;
 }
