@@ -16,29 +16,29 @@ class TacoCloud01ApplicationTests {
 	@Test
 	void contextLoads() {
 		
-		List<Ingredient> ingredients = Arrays.asList(
-			new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
-			new Ingredient("COTO", "Corn Tortilla",  Type.WRAP),
-			new Ingredient("GRBF", "Ground Beef", 	 Type.PROTEIN),
-			new Ingredient("CARN", "Carnitas", 		 Type.PROTEIN),
-			new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES),
-			new Ingredient("LETC", "Lettuce", 		 Type.VEGGIES),
-			new Ingredient("CHED", "Cheddar", 		 Type.CHEESE),
-			new Ingredient("JACK", "Monterrey",		 Type.CHEESE),
-			new Ingredient("SLSA", "Salsa", 		 Type.SAUCE),
-			new Ingredient("SRCR", "Sour cream", 	 Type.SAUCE)
-			
-		);
-		
-		Type[] types = Ingredient.Type.values();
-		
-		
-		for (Type type : types) {
-			List<Ingredient> list =	ingredients.stream()
-				.filter( i -> i.getType().equals(type)).collect(Collectors.toList());
-			
-			System.out.println(list);
-		}
+//		List<Ingredient> ingredients = Arrays.asList(
+//			new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
+//			new Ingredient("COTO", "Corn Tortilla",  Type.WRAP),
+//			new Ingredient("GRBF", "Ground Beef", 	 Type.PROTEIN),
+//			new Ingredient("CARN", "Carnitas", 		 Type.PROTEIN),
+//			new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES),
+//			new Ingredient("LETC", "Lettuce", 		 Type.VEGGIES),
+//			new Ingredient("CHED", "Cheddar", 		 Type.CHEESE),
+//			new Ingredient("JACK", "Monterrey",		 Type.CHEESE),
+//			new Ingredient("SLSA", "Salsa", 		 Type.SAUCE),
+//			new Ingredient("SRCR", "Sour cream", 	 Type.SAUCE)
+//			
+//		);
+//		
+//		Type[] types = Ingredient.Type.values();
+//		
+//		
+//		for (Type type : types) {
+//			List<Ingredient> list =	ingredients.stream()
+//				.filter( i -> i.getType().equals(type)).collect(Collectors.toList());
+//			
+//			System.out.println(list);
+//		}
 	}
 
 }

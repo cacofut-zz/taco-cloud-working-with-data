@@ -7,33 +7,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import lombok.AllArgsConstructor;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-//@Entity
+@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force=true)
+@Entity
 public class Ingredient {
 	
 	
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private final Long id;
 	
-	private String codigo;
-	private String name;
+	private final String codigo;
+	private final String name;
 	
-	//@Enumerated(EnumType.STRING)
-	private Type type;
-	
-		
-	public Ingredient(String codigo, String name, Type type) {	
-		this(null, codigo, name, type);		
-	}
-
-
+	@Enumerated(EnumType.STRING)
+	private final Type type;
 
 	public static enum Type{
 		WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
