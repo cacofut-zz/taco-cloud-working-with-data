@@ -13,6 +13,7 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import br.com.salao.entity.Order;
 import br.com.salao.repository.OrderRepository;
+import br.com.salao.repository.OrderRepositorySpringData;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -21,11 +22,12 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("order")
 public class OrderController {
 		
-	private OrderRepository orderRepository;	
+	//private OrderRepository orderRepository;	
 	
+	private OrderRepositorySpringData orderRepository;
 
 	@Autowired
-	public OrderController(OrderRepository orderRepository) {	
+	public OrderController(OrderRepositorySpringData orderRepository) {	
 		this.orderRepository = orderRepository;
 	}
 
