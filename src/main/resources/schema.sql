@@ -1,3 +1,55 @@
+create table if not exists user(
+	id identity,
+	username varchar(80) not null,
+	password varchar(100) not null, 
+	enabled boolean not null		
+);
+
+create table if not exists authority(
+	id identity, 
+	name varchar(30)	
+);
+
+create table if not exists user_authority(
+	id identity, 
+	user_id bigint not null,
+	authority_id bigint not null		
+);
+
+create table if not exists groups(
+	id identity,
+	name varchar(50)	
+);
+
+create table if not exists user_groups(
+	id identity,
+	user_id bigint not null, 
+	group_id bigint not null	
+);
+
+create table if not exists groups_authority(
+	id identity,
+	groups_id bigint not null,
+	authority_id bigint not null
+);
+  
+alter table user_authority
+  add foreign key(user_id) references user;
+
+alter table user_authority
+  add foreign key(authority_id) references authority;
+  
+alter table user_groups
+  add foreign key(user_id) references user;
+  
+alter table user_groups
+  add foreign key(group_id) references groups;
+  
+alter table groups_authority
+  add foreign key(groups_id) references groups;
+  
+alter table groups_authority
+  add foreign key(authority_id) references authority;
 
 /*
 create table if not exists Ingredient(	
