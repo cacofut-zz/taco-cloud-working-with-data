@@ -1,4 +1,4 @@
-create table if not exists user(
+/*create table if not exists user(
 	id identity,
 	username varchar(80) not null,
 	password varchar(100) not null, 
@@ -24,7 +24,7 @@ create table if not exists groups(
 create table if not exists user_groups(
 	id identity,
 	user_id bigint not null, 
-	group_id bigint not null	
+	groups_id bigint not null	
 );
 
 create table if not exists groups_authority(
@@ -43,13 +43,14 @@ alter table user_groups
   add foreign key(user_id) references user;
   
 alter table user_groups
-  add foreign key(group_id) references groups;
+  add foreign key(groups_id) references groups;
   
 alter table groups_authority
   add foreign key(groups_id) references groups;
   
 alter table groups_authority
   add foreign key(authority_id) references authority;
+  */
 
 /*
 create table if not exists Ingredient(	
