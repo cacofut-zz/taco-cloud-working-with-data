@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,7 +43,7 @@ public class User implements UserDetails {
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	
-	@ManyToMany(targetEntity = Authority.class)
+	@ManyToMany(fetch = FetchType.EAGER, targetEntity = Authority.class)
 	private List<Authority> authorities = new ArrayList<>();
 	
 	@ManyToMany(mappedBy = "users")

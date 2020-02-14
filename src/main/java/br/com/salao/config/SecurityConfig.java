@@ -1,20 +1,25 @@
 package br.com.salao.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
+	//@Autowired
+	//private DataSource datasource;
+	
 	@Autowired
-	private DataSource datasource;
+	private UserDetailsService userDetailsService;
 
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception{
@@ -30,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		httpSecurity.headers().frameOptions().disable();
 	}
 	
-	 
+	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		/*auth.inMemoryAuthentication()
@@ -42,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.password("{noop}123456")
 				.authorities("ROLE_USER");*/
 		
-		String users_query = 
+		/*String users_query = 
 			"SELECT USERNAME, PASSWORD, ENABLED FROM USER U\r\n" + 
 			" WHERE U.USERNAME = ?";
 		
@@ -76,13 +81,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.dataSource(datasource)
 			.usersByUsernameQuery(users_query)
 			.authoritiesByUsernameQuery(authoryties_query)
-			.groupAuthoritiesByUsername(groups_query);
+			.groupAuthoritiesByUsername(groups_query);*/
+		
+		auth.userDetailsService(userDetailsService);
 		
 				
 	}
-	
-//	@Bean
-//	public BCryptPasswordEncoder passWordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
+			
 }
