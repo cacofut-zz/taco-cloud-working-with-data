@@ -1,5 +1,7 @@
 package br.com.salao.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,19 +17,22 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
-	//@Autowired
-	//private DataSource datasource;
+	@Autowired
+	private DataSource datasource;
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	/*
+	 * as definições devem ocorrer de cima para baixo
+	 * o mais específico em cima e o mais geral em baixo
+	 * */
 	@Override
 	public void configure(HttpSecurity httpSecurity) throws Exception{
 		httpSecurity
 			.authorizeRequests()
-				.antMatchers("/").permitAll()// permit public access to home page			
-				.antMatchers("/console/**").permitAll()
-				.antMatchers("/design").hasAnyRole("USER", "ADMIN", "MANAGER")
+				.antMatchers("/design", "/orders").hasAnyRole("USER", "ADMIN", "MANAGER")
+				.antMatchers("/", "/**", "/console").permitAll()// permit public access to home page							
 			.and()
 			.formLogin();
 		
@@ -47,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 				.password("{noop}123456")
 				.authorities("ROLE_USER");*/
 		
-		/*String users_query = 
+		String users_query = 
 			"SELECT USERNAME, PASSWORD, ENABLED FROM USER U\r\n" + 
 			" WHERE U.USERNAME = ?";
 		
@@ -81,11 +86,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.dataSource(datasource)
 			.usersByUsernameQuery(users_query)
 			.authoritiesByUsernameQuery(authoryties_query)
-			.groupAuthoritiesByUsername(groups_query);*/
+			.groupAuthoritiesByUsername(groups_query);
 		
-		auth.userDetailsService(userDetailsService);
+		//auth.userDetailsService(userDetailsService);
 		
 				
 	}
+	
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	
 			
 }

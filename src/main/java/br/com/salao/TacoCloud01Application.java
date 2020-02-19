@@ -63,7 +63,8 @@ public class TacoCloud01Application implements WebMvcConfigurer, CommandLineRunn
 							
 		User user1 = new User(
 			"cacofut", 
-			"{bcrypt}$2a$10$N/m4wiAuv2MoxlOQdC0TweCotk0DzTAsOkoL5KikUBBZnmXzbccEC", 
+			//"{bcrypt}$2a$10$N/m4wiAuv2MoxlOQdC0TweCotk0DzTAsOkoL5KikUBBZnmXzbccEC",
+			"$2a$10$N/m4wiAuv2MoxlOQdC0TweCotk0DzTAsOkoL5KikUBBZnmXzbccEC",
 			"Cristiano Carvalho Amaral", 
 			"Rua Ernest Renam 954", 
 			"São Paulo", 
@@ -81,7 +82,8 @@ public class TacoCloud01Application implements WebMvcConfigurer, CommandLineRunn
 		
 		User user2 = new User(
 			"joao", 
-			"{bcrypt}$2a$10$N/m4wiAuv2MoxlOQdC0TweCotk0DzTAsOkoL5KikUBBZnmXzbccEC", 
+			//"{bcrypt}$2a$10$N/m4wiAuv2MoxlOQdC0TweCotk0DzTAsOkoL5KikUBBZnmXzbccEC", 
+			"$2a$10$N/m4wiAuv2MoxlOQdC0TweCotk0DzTAsOkoL5KikUBBZnmXzbccEC",
 			"João Roberto Silva", 
 			"Rua Ernest Renam 954", 
 			"São Paulo", 
