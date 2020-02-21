@@ -10,14 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.CreditCardNumber;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -63,6 +60,9 @@ public class Order implements Serializable{
 	
 	@ManyToMany(targetEntity = Taco.class) 
 	private List<Taco> tacos = new ArrayList<>();
+	
+	@ManyToOne
+	private User user;
 		
 	public void addTaco(Taco taco) {
 		tacos.add(taco);		

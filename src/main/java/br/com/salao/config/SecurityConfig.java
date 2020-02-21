@@ -28,16 +28,59 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	 * o mais específico em cima e o mais geral em baixo
 	 * */
 	@Override
-	public void configure(HttpSecurity httpSecurity) throws Exception{
-		httpSecurity
+	public void configure(HttpSecurity http) throws Exception{
+		/*
+		http
 			.authorizeRequests()
 				.antMatchers("/design", "/orders").hasAnyRole("USER", "ADMIN", "MANAGER")
 				.antMatchers("/", "/**", "/console").permitAll()// permit public access to home page							
 			.and()
 			.formLogin();
+		*/
 		
-		httpSecurity.csrf().disable();
-		httpSecurity.headers().frameOptions().disable();
+		/*
+		http
+			.authorizeRequests()
+			.antMatchers("/design", "/orders")
+				.access("hasRole('USER')")
+			.antMatchers("/", "/**").access("permitAll")
+			.and()
+			.formLogin();
+		*/
+		
+		/*http
+			.authorizeRequests()
+			.antMatchers("/design", "/orders")
+				.access("hasRole('USER') && "
+						+ "T(java.util.Calendar).getInstance().get("
+						+ "T(java.util.Calendar).DAY_OF_WEEK) == "
+						+ "T(java.util.Calendar).WEDNESDAY" )
+			.antMatchers("/", "/**").access("permitAll")
+			.and()
+			.formLogin();
+		*/
+		
+		http
+			.authorizeRequests()
+				.antMatchers("/design", "/orders")
+				.access("hasRole('USER')")  
+				.antMatchers("/", "/**").access("permitAll")
+			.and()
+				.formLogin()
+					.loginPage("/login")
+					.failureUrl("/login?error=yes")
+					//.loginProcessingUrl("/authenticate") define o caminho para validar
+					//.usernameParameter("user") define o nome do campo igual do formulário
+					//.passwordParameter("pwd") define o nome do campo igual do formulário
+					.defaultSuccessUrl("/design") // define uma página default quando o login for válido
+					//.defaultSuccessUrl("", true) // força o direcionamento para a página default após o login
+			.and()
+				.logout()
+					.logoutSuccessUrl("/login?logout")
+			;
+		
+		http.csrf().disable();
+		http.headers().frameOptions().disable();
 	}
 	
 	

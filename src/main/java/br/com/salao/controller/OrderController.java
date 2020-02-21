@@ -1,5 +1,7 @@
 package br.com.salao.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import br.com.salao.entity.Order;
-import br.com.salao.repository.OrderRepository;
+import br.com.salao.entity.User;
 import br.com.salao.repository.OrderRepositorySpringData;
+import br.com.salao.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,12 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 public class OrderController {
 		
 	//private OrderRepository orderRepository;	
-	
+	private UserRepository userRepo;
 	private OrderRepositorySpringData orderRepository;
 
 	@Autowired
-	public OrderController(OrderRepositorySpringData orderRepository) {	
+	public OrderController(OrderRepositorySpringData orderRepository, UserRepository userRepo) {	
 		this.orderRepository = orderRepository;
+		this.userRepo = userRepo;
 	}
 
 	@GetMapping("/current")
@@ -36,6 +40,7 @@ public class OrderController {
 		return "orderForm";
 	}
 	
+	/*
 	@PostMapping
 	public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus) {
 		if( errors.hasErrors() ) {
@@ -47,5 +52,25 @@ public class OrderController {
 		sessionStatus.setComplete();
 		log.info("Order submitted: " + order);
 		return "redirect:/";
+	}*/
+	
+	/*
+	 * usando o Principal para obter o usuário*/
+	@PostMapping
+	public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus, 
+			Principal principal) {
+		if( errors.hasErrors() ) {
+			log.info("Order submitted: " + order);
+			System.out.println(errors);
+			return "orderForm";
+		}
+		User user = userRepo.findByUsername(principal.getName());
+		order.setUser(user);
+		orderRepository.save(order);
+		sessionStatus.setComplete();
+		log.info("Order submitted: " + order);
+		return "redirect:/";
 	}
+	
+	
 }
